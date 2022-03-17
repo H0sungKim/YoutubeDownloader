@@ -4,22 +4,22 @@ Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 2022.03.16
 Hosung.Kim
 ---------------------
-Playlist Downloader TestVersion
+Playlist Downloader Version 1.0.0
 ---------------------
 Issues
 
-* video download
+* video downloading speed too slow
 =====================
 '''
 
 from pytube import Playlist
-import Util
+from moviepy.editor import *
 
 # playlistLink = "https://www.youtube.com/playlist?list=PLqCFQHCB2NpVjDwUQ6RvbI7BmUKZZKCgg"
 # playlistLink = "https://youtube.com/playlist?list=PLqCFQHCB2NpUQzsMCPwyOgr96t40ZPd02"
 playlistLink = input("Enter the link of the Youtube playlist you want to download.\n=>")
 
-# DOWNLOAD_PATH = "/Users/kihoon.kim/Hosung/data/document/"
+# DOWNLOAD_PATH = "/Users/kihoon.kim/Hosung/data/test/"
 DOWNLOAD_PATH = input("Enter the path to save the Youtube videos.\n=>")
 
 playlist = Playlist(playlistLink)
@@ -31,17 +31,29 @@ if input(f"Are you sure to download {playlist.title} into {downloadStyle}? [y/n]
 
 if downloadStyle == "audio" :
     for video in playlist.videos :
-        video.streams.filter(only_audio=True).first().download(DOWNLOAD_PATH)
-    Util.convertMP4toMP3(DOWNLOAD_PATH)
+        FILE_NAME = video.title
+        video.streams.filter(adaptive=True, file_extension='mp4', only_audio=True).order_by('abr').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}.mp3")
 elif downloadStyle == "video" :
-    pass
+    for video in playlist.videos :
+        FILE_NAME = video.title
+
+        video.streams.filter(adaptive=True, file_extension='mp4', only_video=True).order_by('resolution').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}_video.mp4")
+        video.streams.filter(adaptive=True, file_extension='mp4', only_audio=True).order_by('abr').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}_audio.mp4")
+
+        videoClip = VideoFileClip(f"{DOWNLOAD_PATH}{FILE_NAME}_video.mp4")
+        audioClip = AudioFileClip(f"{DOWNLOAD_PATH}{FILE_NAME}_audio.mp4")
+
+        videoClip.audio = audioClip
+
+        videoClip.write_videofile(f"{DOWNLOAD_PATH}{FILE_NAME}.mp4")
+
+        os.remove(f"{DOWNLOAD_PATH}{FILE_NAME}_video.mp4")
+        os.remove(f"{DOWNLOAD_PATH}{FILE_NAME}_audio.mp4")
 else :
     quit()
 
 print(f"Youtube {downloadStyle} {playlist.title} is downloaded successfully.")
 
-# # DOWNLOAD_PATH = input("Enter the path to save the Youtube video.\n=>")
-#
 # count = 0
 # data = ""
 # for video in playlist.videos :

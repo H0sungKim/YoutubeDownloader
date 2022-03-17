@@ -4,7 +4,7 @@ Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 2022.03.15
 Hosung.Kim
 ---------------------
-Youtube Downloader TestVersion
+Youtube Downloader Version 1.0.0
 ---------------------
 Issues
 
@@ -13,7 +13,6 @@ Issues
 '''
 
 from pytube import YouTube
-import Util
 from moviepy.editor import *
 import os
 
@@ -24,7 +23,7 @@ videoLink = input("Enter the link of the Youtube video you want to download.\n=>
 DOWNLOAD_PATH = input("Enter the path to save the Youtube video.\n=>")
 
 youtube = YouTube(videoLink)
-FILE_NAME = Util.simplifyTitle(youtube.title)
+FILE_NAME = youtube.title
 
 downloadStyle = input("Enter the download type. [video/audio]\n=>")
 
