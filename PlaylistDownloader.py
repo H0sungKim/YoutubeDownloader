@@ -64,5 +64,3 @@ print(f"Youtube {downloadStyle} {playlist.title} is downloaded successfully.")
 # f = open("/Users/kihoon.kim/Hosung/data/document/playlistBackup.txt", "w")
 # f.write(f"{count}\n{data}")
 # f.close()
-#
-# Util.convertMP4toMP3(DOWNLOAD_PATH)

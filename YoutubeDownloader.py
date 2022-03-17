@@ -32,7 +32,6 @@ if input(f"Are you sure to download {youtube.title} into {downloadStyle}? [y/n]\
 
 if downloadStyle == "audio" :
     youtube.streams.filter(adaptive=True, file_extension='mp4', only_audio=True).order_by('abr').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}.mp3")
-    # Util.convertMP4toMP3(DOWNLOAD_PATH)
     # youtube.streams.filter(only_audio=True).first().download(DOWNLOAD_PATH)
 
 elif downloadStyle == "video" :
