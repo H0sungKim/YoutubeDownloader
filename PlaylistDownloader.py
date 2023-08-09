@@ -15,11 +15,8 @@ Issues
 from pytube import Playlist
 from moviepy.editor import *
 
-# playlistLink = "https://www.youtube.com/playlist?list=PLqCFQHCB2NpVjDwUQ6RvbI7BmUKZZKCgg"
-# playlistLink = "https://youtube.com/playlist?list=PLqCFQHCB2NpUQzsMCPwyOgr96t40ZPd02"
 playlistLink = input("Enter the link of the Youtube playlist you want to download.\n=>")
 
-# DOWNLOAD_PATH = "/Users/kihoon.kim/Hosung/data/test/"
 DOWNLOAD_PATH = input("Enter the path to save the Youtube videos.\n=>")
 
 playlist = Playlist(playlistLink)
