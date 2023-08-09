@@ -16,10 +16,8 @@ from pytube import YouTube
 from moviepy.editor import *
 import os
 
-# videoLink = "https://www.youtube.com/watch?v=gs1zusawMGE&list=PLqCFQHCB2NpUQzsMCPwyOgr96t40ZPd02&index=2"
 videoLink = input("Enter the link of the Youtube video you want to download.\n=>")
 
-# DOWNLOAD_PATH = "/Users/kihoon.kim/Hosung/data/test/"
 DOWNLOAD_PATH = input("Enter the path to save the Youtube video.\n=>")
 
 youtube = YouTube(videoLink)
