@@ -18,7 +18,7 @@ for video in playlist.videos :
     count += 1
     Util.printProgressBar(count, playlistLen)
 
-f = open(f"{DOWNLOAD_PATH}playlistBackup.txt", "w")
+f = open(f"{DOWNLOAD_PATH}playlistBackup.txt", "w", encoding="UTF-8")
 f.write(data)
 f.close()
 

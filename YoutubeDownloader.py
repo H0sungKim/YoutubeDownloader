@@ -4,8 +4,6 @@ Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 2022.03.15
 Hosung.Kim
 ---------------------
-Youtube Downloader Version 1.0.0
----------------------
 Issues
 
 * video downloading speed too slow
@@ -16,13 +14,11 @@ from pytube import YouTube
 from moviepy.editor import *
 import os
 
-# videoLink = "https://www.youtube.com/watch?v=gs1zusawMGE&list=PLqCFQHCB2NpUQzsMCPwyOgr96t40ZPd02&index=2"
 videoLink = input("Enter the link of the Youtube video you want to download.\n=>")
 
-# DOWNLOAD_PATH = "/Users/kihoon.kim/Hosung/data/test/"
 DOWNLOAD_PATH = input("Enter the path to save the Youtube video.\n=>")
 
-youtube = YouTube(videoLink)
+youtube = YouTube(videoLink, use_oauth=False, allow_oauth_cache=True)
 FILE_NAME = youtube.title
 
 downloadStyle = input("Enter the download type. [video/audio]\n=>")
@@ -37,6 +33,7 @@ if downloadStyle == "audio" :
 elif downloadStyle == "video" :
     youtube.streams.filter(adaptive=True, file_extension='mp4', only_video=True).order_by('resolution').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}_video.mp4")
     youtube.streams.filter(adaptive=True, file_extension='mp4', only_audio=True).order_by('abr').desc().first().download(DOWNLOAD_PATH, f"{FILE_NAME}_audio.mp4")
+    
 
     videoClip = VideoFileClip(f"{DOWNLOAD_PATH}{FILE_NAME}_video.mp4")
     audioClip = AudioFileClip(f"{DOWNLOAD_PATH}{FILE_NAME}_audio.mp4")
@@ -47,6 +44,7 @@ elif downloadStyle == "video" :
 
     os.remove(f"{DOWNLOAD_PATH}{FILE_NAME}_video.mp4")
     os.remove(f"{DOWNLOAD_PATH}{FILE_NAME}_audio.mp4")
+    # youtube.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download()
 
 else :
     quit()
