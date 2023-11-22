@@ -1,14 +1,4 @@
-'''
-Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
-=====================
-2022.03.16
-Hosung.Kim
----------------------
-Issues
-
-* video downloading speed too slow
-=====================
-'''
+# 2022 Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 
 from pytube import Playlist
 from moviepy.editor import *
